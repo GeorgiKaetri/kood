@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center ;
+            /* You can customize the background URL here */
+            background-image: url('https://img.freepik.com/premium-photo/photorealistic-photo-gropu-cats-with-different-degrees-happiness_777271-11780.jpg');
+        }
+
+        #image-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff; /* White container background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+            border-radius: 8px; /* Rounded corners */
+            max-width: 600px; /* Limit container width */
+            margin: 50px auto; /* Center container */
+        }
+
+        #gallery-img {
+            max-width: 100%;
+            max-height: 400px;
+            margin: 20px 0;
+            border-radius: 8px; /* Rounded corners for the image */
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #4CAF50; /* Green button background */
+            color: #fff; /* White button text */
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+    <title>Kassid</title>
+</head>
+
+<body>
+
+    <div id="image-container">
+        <img id="kass" src="" alt="Gallery Image" />
+        <br>
+        <button onclick="logCat()">JÄRGMINE KASS</button>
+    </div>
+
+    <script>
+        function logCat() {
+            console.log("kass");
+
+            fetch('https://api.thecatapi.com/v1/images/search')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    kassipilt(data)
+                })
+                .catch(error => console.error('Error:', error))
+        }
+
+        function kassipilt(data) {
+            const catpic = data[0].url;
+            console.log(catpic);
+            document.getElementById('kass').src = catpic;
+        }
+    </script>
+
+</body>
+
+</html>
